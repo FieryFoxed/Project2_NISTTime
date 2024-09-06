@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class Client {
@@ -40,7 +41,12 @@ public class Client {
                 reply.getLength()
         );
 
-        System.out.println(new String(serverMessage));
+        System.out.println(new String("Original message: " + serverMessage));
+
+        int value = ByteBuffer.wrap(serverMessage).getInt();
+        long unsignedValue = Integer.toUnsignedLong(value);
+
+        System.out.println(new String("Unsigned integer: " + String.valueOf(unsignedValue)));
 
     }
 }
