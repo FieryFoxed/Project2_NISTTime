@@ -5,6 +5,9 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Arrays;
 
 public class Client {
@@ -33,7 +36,7 @@ public class Client {
                 1024
         );
         socket.receive(reply);
-        System.out.println(new String(reply.toString()));
+        System.out.println(reply);
         socket.close();
 
         byte[] serverMessage = Arrays.copyOf(
@@ -41,12 +44,17 @@ public class Client {
                 reply.getLength()
         );
 
-        System.out.println(new String("Original message: " + serverMessage));
+        System.out.println("Original message: " + Arrays.toString(serverMessage));
 
         int value = ByteBuffer.wrap(serverMessage).getInt();
         long unsignedValue = Integer.toUnsignedLong(value);
 
-        System.out.println(new String("Unsigned integer: " + String.valueOf(unsignedValue)));
+        System.out.println("Unsigned integer: " + unsignedValue);
+
+        Instant date = Instant.ofEpochSecond(unsignedValue);
+        LocalDateTime dateTime = LocalDateTime.ofInstant(date, ZoneId.systemDefault());
+
+        System.out.println("Date and time: " + dateTime);
 
     }
 }
