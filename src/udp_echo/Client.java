@@ -53,8 +53,9 @@ public class Client {
 
         Instant date = Instant.ofEpochSecond(unsignedValue);
         LocalDateTime dateTime = LocalDateTime.ofInstant(date, ZoneId.systemDefault());
+        LocalDateTime dateTimeMinus = dateTime.minusYears(70);
 
-        System.out.println("Date and time: " + dateTime);
+        System.out.println("Date and time: " + dateTimeMinus);
 
     }
 }
